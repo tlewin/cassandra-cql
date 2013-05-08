@@ -36,7 +36,8 @@ module CassandraCQL
       @cql_version = @options[:cql_version]
       @servers = servers
       connect!
-      execute("USE #{@keyspace}")
+      # Raise an error if user is not authenticate
+      # execute("USE #{@keyspace}")
     end
 
     def connect!
@@ -44,7 +45,8 @@ module CassandraCQL
       obj = self
       @connection.add_callback(:post_connect) do
         @connection.set_cql_version(@cql_version) if @cql_version
-        execute("USE #{@keyspace}")
+        # Raise an error if user is not authenticate
+        # execute("USE #{@keyspace}")
         @connection.login(@auth_request) if @auth_request
       end
     end
